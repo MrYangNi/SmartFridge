@@ -3,7 +3,7 @@
 <mapper namespace="com.jayce.dao.test.DBTestMapper" >
     <select id="selectMessage" resultType="java.lang.String">
         SELECT message
-        FROM smartfridge.test_tabel
+        FROM smartfridge.test_table
         LIMIT 1
     </select>
 </mapper>

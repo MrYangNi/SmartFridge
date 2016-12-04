@@ -1,4 +1,4 @@
-package com.jayce.service.test;
+package com.jayce.service.def.test;
 
 /**
  * Created by Jaycejia on 2016/12/3.

@@ -1,7 +1,7 @@
 package com.jayce.controller.test;
 
 import com.jayce.pojo.test.TestPO;
-import com.jayce.service.test.TestService;
+import com.jayce.service.def.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

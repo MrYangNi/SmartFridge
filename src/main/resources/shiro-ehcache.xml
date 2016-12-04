@@ -1,0 +1,34 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../webapp/WEB-INF/ehcache.xsd">
+	<!--diskStore：缓存数据持久化的目录 地址  -->
+	<diskStore path="java.io.tmpdir" />
+	<defaultCache 
+		maxElementsInMemory="1000" 
+		maxElementsOnDisk="10000000"
+		eternal="false" 
+		overflowToDisk="false" 
+		diskPersistent="false"
+		timeToIdleSeconds="120"
+		timeToLiveSeconds="120" 
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU">
+	</defaultCache>
+	<!-- 授权缓存 -->
+	<cache name="authorizationCache"
+		   maxEntriesLocalHeap="2000"
+		   eternal="false"
+		   timeToIdleSeconds="300"
+		   timeToLiveSeconds="0"
+		   overflowToDisk="false"
+		   statistics="true">
+	</cache>
+	<!-- 认证缓存 -->
+	<cache name="authenticationCache"
+		   maxEntriesLocalHeap="2000"
+		   eternal="false"
+		   timeToIdleSeconds="3600"
+		   timeToLiveSeconds="0"
+		   overflowToDisk="false"
+		   statistics="true">
+	</cache>
+</ehcache>

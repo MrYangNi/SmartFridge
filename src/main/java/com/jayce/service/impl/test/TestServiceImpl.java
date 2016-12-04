@@ -1,7 +1,7 @@
 package com.jayce.service.impl.test;
 
 import com.jayce.dao.test.DBTestMapper;
-import com.jayce.service.test.TestService;
+import com.jayce.service.def.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
