@@ -10,13 +10,21 @@ public interface StatelessSessionMapper {
 
     int deleteByExample(StatelessSessionExample example);
 
+    int deleteByPrimaryKey(String clientId);
+
     int insert(StatelessSession record);
 
     int insertSelective(StatelessSession record);
 
     List<StatelessSession> selectByExample(StatelessSessionExample example);
 
+    StatelessSession selectByPrimaryKey(String clientId);
+
     int updateByExampleSelective(@Param("record") StatelessSession record, @Param("example") StatelessSessionExample example);
 
     int updateByExample(@Param("record") StatelessSession record, @Param("example") StatelessSessionExample example);
+
+    int updateByPrimaryKeySelective(StatelessSession record);
+
+    int updateByPrimaryKey(StatelessSession record);
 }

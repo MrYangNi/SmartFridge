@@ -49,7 +49,7 @@ public class StatelessRealm extends AuthorizingRealm {
             if (user == null) {//如果获取结果则说明无此用户，返回null，抛出UnknownAccountException异常
                 return null;
             }
-            return new SimpleAuthenticationInfo(user.getUserId(), user.getPassword(), new SerializableByteSource(user.getSalt().getBytes()), getName());
+            return new SimpleAuthenticationInfo(user, user.getPassword(), new SerializableByteSource(user.getSalt().getBytes()), getName());
         }
 
     }

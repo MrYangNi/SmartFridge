@@ -21,10 +21,9 @@ public class SessionServiceImpl implements SessionService{
     private StatelessSessionMapper sessionMapper;
     @Autowired
     private StatelessRealm realm;
-    private static final byte[] lock = new byte[0];
     @Override
     public StatelessSession getSessionByClientId(String clientId) {
-        return null;
+        return sessionMapper.selectByPrimaryKey(clientId);
     }
 
     @Override

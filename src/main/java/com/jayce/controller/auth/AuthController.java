@@ -37,8 +37,7 @@ public class AuthController {
     @RequestMapping(value = "/api/login",method = RequestMethod.POST,produces = "application/json")
     public LoginInfoRsp generateToken(HttpServletRequest request) throws Exception{
         Subject subject = SecurityUtils.getSubject();
-        String userId = (String) subject.getPrincipal();
-        SimpleUser simpleUser = userService.getUser(userId);
+        SimpleUser simpleUser = (SimpleUser) subject.getPrincipal();
         LoginInfoRsp loginInfoRsp = new LoginInfoRsp(simpleUser);
         AuthenticateInfo authcInfo = (AuthenticateInfo) request.getAttribute("authcInfo");
         loginInfoRsp.setAuthToken(sessionService.registerAccessToken(authcInfo));

@@ -7,7 +7,7 @@ import com.jayce.pojo.user.SimpleUser;
  * 用于回复客户端的UserInfo
  */
 public class LoginInfoRsp {
-    private String userId;
+    private Long userId;
     private String name;
     private String username;
     private String authToken;
@@ -26,11 +26,11 @@ public class LoginInfoRsp {
         this.name = name;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

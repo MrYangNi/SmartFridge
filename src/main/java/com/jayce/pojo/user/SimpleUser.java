@@ -1,12 +1,7 @@
 package com.jayce.pojo.user;
 
-/**
- * Created by Jaycejia on 2016/12/4.
- */
 public class SimpleUser {
-    private String userId;
-
-    private String name;
+    private Long userId;
 
     private String username;
 
@@ -14,11 +9,15 @@ public class SimpleUser {
 
     private String salt;
 
-    public String getUserId() {
+    private String name;
+
+    private Boolean status;
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -27,7 +26,7 @@ public class SimpleUser {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username == null ? null : username.trim();
     }
 
     public String getPassword() {
@@ -35,7 +34,7 @@ public class SimpleUser {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password == null ? null : password.trim();
     }
 
     public String getSalt() {
@@ -43,7 +42,7 @@ public class SimpleUser {
     }
 
     public void setSalt(String salt) {
-        this.salt = salt;
+        this.salt = salt == null ? null : salt.trim();
     }
 
     public String getName() {
@@ -51,6 +50,14 @@ public class SimpleUser {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }

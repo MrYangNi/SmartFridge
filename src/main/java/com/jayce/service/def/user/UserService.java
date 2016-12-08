@@ -14,7 +14,7 @@ public interface UserService {
      * @return
      * @throws UnknownAccountException
      */
-    SimpleUser getUser(String userId) throws UnknownAccountException;
+    SimpleUser getUser(Long userId) throws UnknownAccountException;
 
     /**
      * 通过用户名获取用户基本信息（用户名密码等）
@@ -30,5 +30,5 @@ public interface UserService {
      * @return
      * @throws Exception
      */
-    User getUserDetail(String userId) throws Exception;
+    User getUserDetail(Long userId) throws Exception;
 }
