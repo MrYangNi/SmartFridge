@@ -13,6 +13,14 @@ public class StatelessSession {
 
     private Date lastActiveTime;
 
+    public StatelessSession(String clientId, Long userId, String token, Date loginTime, Date lastActiveTime) {
+        this.clientId = clientId;
+        this.userId = userId;
+        this.token = token;
+        this.loginTime = loginTime;
+        this.lastActiveTime = lastActiveTime;
+    }
+
     public String getClientId() {
         return clientId;
     }

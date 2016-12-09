@@ -1,6 +1,8 @@
 package com.jayce.pojo.user;
 
-public class SimpleUser {
+import java.io.Serializable;
+
+public class SimpleUser implements Serializable{
     private Long userId;
 
     private String username;

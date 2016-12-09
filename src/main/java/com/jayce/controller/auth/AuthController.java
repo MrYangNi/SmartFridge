@@ -27,14 +27,12 @@ import javax.servlet.http.HttpServletRequest;
 public class AuthController {
     @Autowired
     private SessionService sessionService;
-    @Autowired
-    private UserService userService;
     /**
      * 用于处理登录的controller
      * @param request
      * @return
      */
-    @RequestMapping(value = "/api/login",method = RequestMethod.POST,produces = "application/json")
+    @RequestMapping(value = "/login",method = RequestMethod.POST,produces = "application/json")
     public LoginInfoRsp generateToken(HttpServletRequest request) throws Exception{
         Subject subject = SecurityUtils.getSubject();
         SimpleUser simpleUser = (SimpleUser) subject.getPrincipal();
@@ -51,7 +49,7 @@ public class AuthController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/api/logout", method = RequestMethod.POST)
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void logout(HttpServletRequest request) throws Exception{
         String authMessage = request.getHeader(HttpHeaders.AUTHORIZATION);

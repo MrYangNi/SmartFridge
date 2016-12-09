@@ -53,4 +53,11 @@
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
     </bean>
 
+    <!--认证失败异常信息拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.jayce.common.AuthFailureInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

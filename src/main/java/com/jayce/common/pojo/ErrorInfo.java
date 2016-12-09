@@ -4,8 +4,10 @@ package com.jayce.common.pojo;
  * Created by Jaycejia on 2016/12/4.
  */
 public class ErrorInfo {
-    public static final Integer ERROR_CODE_UNKOWN = -1;
-    private Integer errorCode;
+    public static final int ERROR_CODE_UNKNOWN = -1;
+    public static final int ERROR_CODE_AUTHENTICATION = -2;
+    public static final int ERROR_CODE_DAO = -2;
+    private int errorCode;
     private String errorMessage;
     private String exceptionName;
     private StackTraceElement[] exceptionStackTrace;
@@ -13,18 +15,18 @@ public class ErrorInfo {
     public ErrorInfo() {
     }
 
-    public ErrorInfo(Integer errorCode, String errorMessage, Exception exp) {
+    public ErrorInfo(int errorCode, String errorMessage, Exception exp) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
         this.exceptionName = exp.getClass().getName();
         this.exceptionStackTrace = exp.getStackTrace();
     }
 
-    public Integer getErrorCode() {
+    public int getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(Integer errorCode) {
+    public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
     }
 
