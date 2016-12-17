@@ -4,9 +4,10 @@ package com.jayce.common.pojo;
  * Created by Jaycejia on 2016/12/4.
  */
 public class ErrorInfo {
-    public static final int ERROR_CODE_UNKNOWN = -1;
-    public static final int ERROR_CODE_AUTHENTICATION = -2;
-    public static final int ERROR_CODE_DAO = -2;
+    public static final int UNKNOWN = -1;
+    public static final int AUTHENTICATION_ERROR = -2;
+    public static final int AUTHORIZATION_ERROR = -3;
+    public static final int DAO_ERROR = -4;
     private int errorCode;
     private String errorMessage;
     private String exceptionName;

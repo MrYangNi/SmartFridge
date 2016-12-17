@@ -1,5 +1,7 @@
 package com.jayce.common.websocket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.socket.WebSocketHandler;
@@ -11,9 +13,11 @@ import java.util.Map;
  * Created by Jaycejia on 2016/12/11.
  */
 public class WebSocketHandshakeInterceptor implements HandshakeInterceptor{
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
-        return false;
+        logger.info(request.getRemoteAddress() + " connected;headers" + request.getHeaders());
+        return true;
     }
 
     @Override
