@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jayce.fridge.dao.FridgeMapper">
+  <resultMap id="BaseResultMap" type="com.jayce.pojo.fridge.Fridge">
+    <result column="fridge_id" jdbcType="BIGINT" property="fridgeId" />
+    <result column="family_id" jdbcType="BIGINT" property="familyId" />
+    <result column="fridge_name" jdbcType="VARCHAR" property="fridgeName" />
+    <result column="fridge_sn" jdbcType="VARCHAR" property="fridgeSn" />
+    <result column="fridge_spec" jdbcType="VARCHAR" property="fridgeSpec" />
+    <result column="status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    fridge_id, family_id, fridge_name, fridge_sn, fridge_spec, status
+  </sql>
+  <select id="selectByExample" parameterType="com.jayce.pojo.fridge.FridgeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tab_fridge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.jayce.pojo.fridge.FridgeExample">
+    delete from tab_fridge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jayce.pojo.fridge.Fridge">
+    insert into tab_fridge (fridge_id, family_id, fridge_name, 
+      fridge_sn, fridge_spec, status
+      )
+    values (#{fridgeId,jdbcType=BIGINT}, #{familyId,jdbcType=BIGINT}, #{fridgeName,jdbcType=VARCHAR}, 
+      #{fridgeSn,jdbcType=VARCHAR}, #{fridgeSpec,jdbcType=VARCHAR}, #{status,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jayce.pojo.fridge.Fridge">
+    insert into tab_fridge
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fridgeId != null">
+        fridge_id,
+      </if>
+      <if test="familyId != null">
+        family_id,
+      </if>
+      <if test="fridgeName != null">
+        fridge_name,
+      </if>
+      <if test="fridgeSn != null">
+        fridge_sn,
+      </if>
+      <if test="fridgeSpec != null">
+        fridge_spec,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fridgeId != null">
+        #{fridgeId,jdbcType=BIGINT},
+      </if>
+      <if test="familyId != null">
+        #{familyId,jdbcType=BIGINT},
+      </if>
+      <if test="fridgeName != null">
+        #{fridgeName,jdbcType=VARCHAR},
+      </if>
+      <if test="fridgeSn != null">
+        #{fridgeSn,jdbcType=VARCHAR},
+      </if>
+      <if test="fridgeSpec != null">
+        #{fridgeSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jayce.pojo.fridge.FridgeExample" resultType="java.lang.Long">
+    select count(*) from tab_fridge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tab_fridge
+    <set>
+      <if test="record.fridgeId != null">
+        fridge_id = #{record.fridgeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.familyId != null">
+        family_id = #{record.familyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fridgeName != null">
+        fridge_name = #{record.fridgeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fridgeSn != null">
+        fridge_sn = #{record.fridgeSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fridgeSpec != null">
+        fridge_spec = #{record.fridgeSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tab_fridge
+    set fridge_id = #{record.fridgeId,jdbcType=BIGINT},
+      family_id = #{record.familyId,jdbcType=BIGINT},
+      fridge_name = #{record.fridgeName,jdbcType=VARCHAR},
+      fridge_sn = #{record.fridgeSn,jdbcType=VARCHAR},
+      fridge_spec = #{record.fridgeSpec,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

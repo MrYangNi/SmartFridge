@@ -2,10 +2,10 @@ package com.jayce.common.auth.filter;
 
 
 import com.jayce.common.auth.token.StatelessToken;
-import com.jayce.exception.auth.InvalidTokenException;
-import com.jayce.exception.auth.NoAuthenticatedInfoException;
+import com.jayce.common.auth.exception.InvalidTokenException;
+import com.jayce.common.auth.exception.NoAuthenticatedInfoException;
 import com.jayce.pojo.auth.StatelessSession;
-import com.jayce.service.def.auth.SessionService;
+import com.jayce.common.auth.service.def.SessionService;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.slf4j.Logger;
