@@ -1,4 +1,4 @@
-package com.jayce.controller.websocket;
+package com.jayce.common.websocket.controller;
 
 import com.jayce.common.pojo.ToUserMessage;
 import org.slf4j.Logger;
