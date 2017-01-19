@@ -1,7 +1,5 @@
 package com.jayce.common.exception.handler;
 
-import com.jayce.common.pojo.ErrorInfo;
-import com.jayce.exception.auth.InvalidTokenException;
 import org.apache.shiro.authc.ExpiredCredentialsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -10,11 +8,13 @@ import org.mybatis.spring.MyBatisSystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.jayce.common.auth.exception.InvalidTokenException;
+import com.jayce.common.pojo.ErrorInfo;
 
 /**
  * 全局异常处理器
