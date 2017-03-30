@@ -1,5 +1,9 @@
 package com.jayce.common.exception.handler;
 
+import com.jayce.common.auth.exception.InvalidTokenException;
+import com.jayce.common.auth.exception.NoAuthenticatedInfoException;
+import com.jayce.common.auth.exception.NotAuthenticatedException;
+import com.jayce.common.exception.ErrorInfo;
 import org.apache.shiro.authc.ExpiredCredentialsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -7,23 +11,21 @@ import org.apache.shiro.authz.UnauthorizedException;
 import org.mybatis.spring.MyBatisSystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.jayce.common.auth.exception.InvalidTokenException;
-import com.jayce.common.pojo.ErrorInfo;
+import java.sql.SQLException;
 
 /**
  * 全局异常处理器
  * Created by Jaycejia on 2016/12/3.
  */
 @RestControllerAdvice
-@PropertySource("classpath:exceptionMessage.properties")
 public class GlobalExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     /**
      * 处理未授权的回应
      * HTTP状态码  401 UNAUTHORIZED
@@ -77,6 +79,32 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 处理未认证的回应
+     * HTTP状态吗 403 FORBIDDEN
+     *
+     * @param e
+     * @return
+     */
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(NotAuthenticatedException.class)
+    public ErrorInfo resolveNotAuthenticated(NotAuthenticatedException e) {
+        return new ErrorInfo(ErrorInfo.AUTHENTICATION_ERROR, "用户终端非法或未进行认证，请登录", e);
+    }
+
+    /**
+     * 处理未认证的回应
+     * HTTP状态吗 403 FORBIDDEN
+     *
+     * @param e
+     * @return
+     */
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(NoAuthenticatedInfoException.class)
+    public ErrorInfo resolveNoAuthenticatedInfo(NoAuthenticatedInfoException e) {
+        return new ErrorInfo(ErrorInfo.AUTHENTICATION_ERROR, "未认证，请登录", e);
+    }
+
+    /**
      * 处理用户未找到的回应
      * HTTP状态码：404 NOT FOUND
      *
@@ -114,7 +142,7 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(MyBatisSystemException.class)
+    @ExceptionHandler({MyBatisSystemException.class, SQLException.class})
     public ErrorInfo resolveMybatisException(MyBatisSystemException e) {
         String errorMessage = "数据库操作错误";
         if (logger.isErrorEnabled()) {

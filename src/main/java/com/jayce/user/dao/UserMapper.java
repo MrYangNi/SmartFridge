@@ -1,7 +1,7 @@
 package com.jayce.user.dao;
 
-import com.jayce.pojo.user.User;
-import com.jayce.pojo.user.UserExample;
+import com.jayce.user.pojo.User;
+import com.jayce.user.pojo.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

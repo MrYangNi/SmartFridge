@@ -1,7 +1,7 @@
 package com.jayce.tag.dao;
 
-import com.jayce.pojo.tag.Tag;
-import com.jayce.pojo.tag.TagExample;
+import com.jayce.tag.pojo.Tag;
+import com.jayce.tag.pojo.TagExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

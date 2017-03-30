@@ -1,7 +1,7 @@
 package com.jayce.family.dao;
 
-import com.jayce.pojo.family.Family;
-import com.jayce.pojo.family.FamilyExample;
+import com.jayce.family.pojo.Family;
+import com.jayce.family.pojo.FamilyExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

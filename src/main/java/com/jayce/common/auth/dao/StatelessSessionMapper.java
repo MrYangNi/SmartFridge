@@ -1,9 +1,10 @@
 package com.jayce.common.auth.dao;
 
-import com.jayce.pojo.auth.StatelessSession;
-import com.jayce.pojo.auth.StatelessSessionExample;
-import java.util.List;
+import com.jayce.common.auth.pojo.StatelessSession;
+import com.jayce.common.auth.pojo.StatelessSessionExample;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface StatelessSessionMapper {
     long countByExample(StatelessSessionExample example);

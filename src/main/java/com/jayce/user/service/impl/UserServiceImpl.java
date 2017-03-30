@@ -2,9 +2,9 @@ package com.jayce.user.service.impl;
 
 import com.jayce.user.dao.SimpleUserMapper;
 import com.jayce.user.dao.UserMapper;
-import com.jayce.pojo.user.SimpleUser;
-import com.jayce.pojo.user.SimpleUserExample;
-import com.jayce.pojo.user.User;
+import com.jayce.user.pojo.SimpleUser;
+import com.jayce.user.pojo.SimpleUserExample;
+import com.jayce.user.pojo.User;
 import com.jayce.user.service.def.UserService;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,10 +2,11 @@ package com.jayce.common.auth.realm;
 
 
 import com.jayce.common.auth.SerializableByteSource;
+import com.jayce.common.auth.exception.InvalidTokenException;
+import com.jayce.common.auth.pojo.StatelessSession;
 import com.jayce.common.auth.token.AuthenticateInfo;
 import com.jayce.common.auth.token.StatelessToken;
-import com.jayce.pojo.auth.StatelessSession;
-import com.jayce.pojo.user.SimpleUser;
+import com.jayce.user.pojo.SimpleUser;
 import com.jayce.common.auth.service.def.SessionService;
 import com.jayce.user.service.def.UserService;
 import org.apache.shiro.authc.AuthenticationException;
@@ -26,9 +27,9 @@ import java.util.List;
  */
 public class StatelessRealm extends AuthorizingRealm {
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    SessionService sessionService;
+    private SessionService sessionService;
     @Override
     public boolean supports(AuthenticationToken token) {
         return token instanceof StatelessToken || token instanceof AuthenticateInfo;
@@ -41,6 +42,9 @@ public class StatelessRealm extends AuthorizingRealm {
             StatelessToken statelessToken = (StatelessToken) token;//认证token
             String clientIdFromUser = (String) statelessToken.getPrincipal();
             StatelessSession session = sessionService.getSessionByClientId(clientIdFromUser);
+            if (session == null) {
+                throw new InvalidTokenException();
+            }
             return new SimpleAuthenticationInfo(session.getClientId(), session.getToken(), getName());
         } else {
             AuthenticateInfo authenticateInfo = (AuthenticateInfo) token;//认证信息

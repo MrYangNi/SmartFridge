@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jayce.family.dao.FamilyMapper">
-  <resultMap id="BaseResultMap" type="com.jayce.pojo.family.Family">
+  <resultMap id="BaseResultMap" type="com.jayce.family.pojo.Family">
     <result column="family_id" jdbcType="BIGINT" property="familyId" />
     <result column="family_name" jdbcType="VARCHAR" property="familyName" />
     <result column="family_addr" jdbcType="VARCHAR" property="familyAddr" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List">
     family_id, family_name, family_addr, status
   </sql>
-  <select id="selectByExample" parameterType="com.jayce.pojo.family.FamilyExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.jayce.family.pojo.FamilyExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -82,19 +82,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.jayce.pojo.family.FamilyExample">
+  <delete id="deleteByExample" parameterType="com.jayce.family.pojo.FamilyExample">
     delete from tab_family
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.jayce.pojo.family.Family">
+  <insert id="insert" parameterType="com.jayce.family.pojo.Family">
     insert into tab_family (family_id, family_name, family_addr, 
       status)
     values (#{familyId,jdbcType=BIGINT}, #{familyName,jdbcType=VARCHAR}, #{familyAddr,jdbcType=VARCHAR}, 
       #{status,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.jayce.pojo.family.Family">
+  <insert id="insertSelective" parameterType="com.jayce.family.pojo.Family">
     insert into tab_family
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="familyId != null">
@@ -125,7 +125,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.jayce.pojo.family.FamilyExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.jayce.family.pojo.FamilyExample" resultType="java.lang.Long">
     select count(*) from tab_family
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

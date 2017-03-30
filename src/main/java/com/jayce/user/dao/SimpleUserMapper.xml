@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jayce.user.dao.SimpleUserMapper">
-  <resultMap id="BaseResultMap" type="com.jayce.pojo.user.SimpleUser">
+  <resultMap id="BaseResultMap" type="com.jayce.user.pojo.SimpleUser">
     <id column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List">
     user_id, username, password, salt, name, status
   </sql>
-  <select id="selectByExample" parameterType="com.jayce.pojo.user.SimpleUserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.jayce.user.pojo.SimpleUserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -94,19 +94,19 @@
     delete from tab_user
     where user_id = #{userId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.jayce.pojo.user.SimpleUserExample">
+  <delete id="deleteByExample" parameterType="com.jayce.user.pojo.SimpleUserExample">
     delete from tab_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.jayce.pojo.user.SimpleUser">
+  <insert id="insert" parameterType="com.jayce.user.pojo.SimpleUser">
     insert into tab_user (user_id, username, password, 
       salt, name, status)
     values (#{userId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{salt,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.jayce.pojo.user.SimpleUser">
+  <insert id="insertSelective" parameterType="com.jayce.user.pojo.SimpleUser">
     insert into tab_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -149,7 +149,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.jayce.pojo.user.SimpleUserExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.jayce.user.pojo.SimpleUserExample" resultType="java.lang.Long">
     select count(*) from tab_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -193,7 +193,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jayce.pojo.user.SimpleUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.jayce.user.pojo.SimpleUser">
     update tab_user
     <set>
       <if test="username != null">
@@ -214,7 +214,7 @@
     </set>
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.jayce.pojo.user.SimpleUser">
+  <update id="updateByPrimaryKey" parameterType="com.jayce.user.pojo.SimpleUser">
     update tab_user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 package com.jayce.food.dao;
 
-import com.jayce.pojo.food.Food;
-import com.jayce.pojo.food.FoodExample;
+import com.jayce.food.pojo.Food;
+import com.jayce.food.pojo.FoodExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

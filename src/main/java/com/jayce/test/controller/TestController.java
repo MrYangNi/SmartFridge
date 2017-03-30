@@ -1,12 +1,11 @@
 package com.jayce.test.controller;
 
-import com.jayce.pojo.test.TestPO;
+import com.jayce.test.pojo.TestPO;
 import com.jayce.test.service.def.TestService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -15,6 +14,7 @@ import java.util.Date;
  */
 @RestController
 public class TestController {
+    private static final Logger logger = LoggerFactory.getLogger(TestController.class);
     @Autowired
     private TestService testService;
     @RequestMapping(value = "/test",method = RequestMethod.POST)
@@ -27,6 +27,13 @@ public class TestController {
     @RequestMapping(value = "/test/date",method = RequestMethod.GET)
     public Date echoDate(Date date) {
         return date;
+    }
+
+
+    @RequestMapping(value = "/newCard", method = RequestMethod.POST)
+    public String onNewTag(@RequestParam("cardId") String carId) {
+        logger.info("收到tagId:{}", carId);
+        return "收到tagId:" + carId;
     }
 
 }

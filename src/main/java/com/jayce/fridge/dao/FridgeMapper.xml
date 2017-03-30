@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jayce.fridge.dao.FridgeMapper">
-  <resultMap id="BaseResultMap" type="com.jayce.pojo.fridge.Fridge">
+  <resultMap id="BaseResultMap" type="com.jayce.fridge.pojo.Fridge">
     <result column="fridge_id" jdbcType="BIGINT" property="fridgeId" />
     <result column="family_id" jdbcType="BIGINT" property="familyId" />
     <result column="fridge_name" jdbcType="VARCHAR" property="fridgeName" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List">
     fridge_id, family_id, fridge_name, fridge_sn, fridge_spec, status
   </sql>
-  <select id="selectByExample" parameterType="com.jayce.pojo.fridge.FridgeExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.jayce.fridge.pojo.FridgeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -84,13 +84,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.jayce.pojo.fridge.FridgeExample">
+  <delete id="deleteByExample" parameterType="com.jayce.fridge.pojo.FridgeExample">
     delete from tab_fridge
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.jayce.pojo.fridge.Fridge">
+  <insert id="insert" parameterType="com.jayce.fridge.pojo.Fridge">
     insert into tab_fridge (fridge_id, family_id, fridge_name, 
       fridge_sn, fridge_spec, status
       )
@@ -98,7 +98,7 @@
       #{fridgeSn,jdbcType=VARCHAR}, #{fridgeSpec,jdbcType=VARCHAR}, #{status,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.jayce.pojo.fridge.Fridge">
+  <insert id="insertSelective" parameterType="com.jayce.fridge.pojo.Fridge">
     insert into tab_fridge
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="fridgeId != null">
@@ -141,7 +141,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.jayce.pojo.fridge.FridgeExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.jayce.fridge.pojo.FridgeExample" resultType="java.lang.Long">
     select count(*) from tab_fridge
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

@@ -1,7 +1,7 @@
 package com.jayce.user.service.def;
 
-import com.jayce.pojo.user.SimpleUser;
-import com.jayce.pojo.user.User;
+import com.jayce.user.pojo.SimpleUser;
+import com.jayce.user.pojo.User;
 import org.apache.shiro.authc.UnknownAccountException;
 
 /**

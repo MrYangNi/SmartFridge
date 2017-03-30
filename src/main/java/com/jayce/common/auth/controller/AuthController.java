@@ -1,11 +1,11 @@
 package com.jayce.common.auth.controller;
 
+import com.jayce.common.auth.pojo.LoginInfoRsp;
+import com.jayce.common.auth.pojo.StatelessSession;
 import com.jayce.common.auth.token.AuthenticateInfo;
 import com.jayce.common.auth.token.StatelessToken;
 import com.jayce.common.auth.exception.UserHasLogoutException;
-import com.jayce.pojo.auth.LoginInfoRsp;
-import com.jayce.pojo.auth.StatelessSession;
-import com.jayce.pojo.user.SimpleUser;
+import com.jayce.user.pojo.SimpleUser;
 import com.jayce.common.auth.service.def.SessionService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

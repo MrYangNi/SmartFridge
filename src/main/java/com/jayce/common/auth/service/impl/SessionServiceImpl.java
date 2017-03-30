@@ -1,11 +1,11 @@
 package com.jayce.common.auth.service.impl;
 
+import com.jayce.common.auth.pojo.StatelessSession;
+import com.jayce.common.auth.pojo.StatelessSessionExample;
 import com.jayce.common.auth.realm.StatelessRealm;
 import com.jayce.common.auth.token.AuthenticateInfo;
 import com.jayce.common.auth.dao.StatelessSessionMapper;
 import com.jayce.common.auth.exception.LogOutException;
-import com.jayce.pojo.auth.StatelessSession;
-import com.jayce.pojo.auth.StatelessSessionExample;
 import com.jayce.common.auth.service.def.SessionService;
 import com.jayce.user.service.def.UserService;
 import org.apache.shiro.authc.AuthenticationException;
@@ -18,8 +18,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Jaycejia on 2016/12/4.
@@ -29,9 +31,9 @@ import java.util.Date;
 @PropertySource("classpath:common.properties")
 public class SessionServiceImpl implements SessionService{
     @Value("${system.isExpired}")
-    private static Boolean NO_EXPIRED;
+    private Boolean NO_EXPIRED;
     @Value("${system.expiredTime}")
-    private static Integer EXPIRED_TIME;
+    private Integer EXPIRED_TIME;
     @Autowired
     private StatelessSessionMapper sessionMapper;
     @Autowired
@@ -61,10 +63,11 @@ public class SessionServiceImpl implements SessionService{
     @Override
     public void register(StatelessSession session) throws Exception {
         clearAuthCache(session);
-        if (!userHasLogin(session.getUserId())) {
+        List<StatelessSession> sessions = sessionMapper.selectByExample(getExampleBySession(session));
+        if (!(userHasLogin(session.getUserId()) || sessions.size() > 0)) {
             sessionMapper.insert(session);
         } else {
-            clean(sessionMapper.selectByExample(getExampleBySession(session)).get(0));
+            clean(sessions.get(0));
             sessionMapper.insert(session);
         }
     }
@@ -123,7 +126,8 @@ public class SessionServiceImpl implements SessionService{
      * @param session
      */
     private void clearAuthCache(StatelessSession session) {
-        PrincipalCollection collection = new SimplePrincipalCollection(session.getClientId(), realm.getName());
+        List<Object> principalList = Arrays.asList(new Object[]{session.getClientId(),userService.getUser(session.getUserId())});
+        PrincipalCollection collection = new SimplePrincipalCollection(principalList, realm.getName());
         realm.doClearCache(collection);
     }
 }

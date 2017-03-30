@@ -1,7 +1,7 @@
 package com.jayce.fridge.dao;
 
-import com.jayce.pojo.fridge.Fridge;
-import com.jayce.pojo.fridge.FridgeExample;
+import com.jayce.fridge.pojo.Fridge;
+import com.jayce.fridge.pojo.FridgeExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jayce.food.dao.FoodTrackMapper">
-  <resultMap id="BaseResultMap" type="com.jayce.pojo.food.FoodTrack">
+  <resultMap id="BaseResultMap" type="com.jayce.food.pojo.FoodTrack">
     <result column="track_id" jdbcType="BIGINT" property="trackId" />
     <result column="food_id" jdbcType="BIGINT" property="foodId" />
     <result column="process_method" jdbcType="BIGINT" property="processMethod" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List">
     track_id, food_id, process_method, process_time, process_unit
   </sql>
-  <select id="selectByExample" parameterType="com.jayce.pojo.food.FoodTrackExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.jayce.food.pojo.FoodTrackExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -83,19 +83,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.jayce.pojo.food.FoodTrackExample">
+  <delete id="deleteByExample" parameterType="com.jayce.food.pojo.FoodTrackExample">
     delete from tab_food_track
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.jayce.pojo.food.FoodTrack">
+  <insert id="insert" parameterType="com.jayce.food.pojo.FoodTrack">
     insert into tab_food_track (track_id, food_id, process_method, 
       process_time, process_unit)
     values (#{trackId,jdbcType=BIGINT}, #{foodId,jdbcType=BIGINT}, #{processMethod,jdbcType=BIGINT}, 
       #{processTime,jdbcType=TIMESTAMP}, #{processUnit,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.jayce.pojo.food.FoodTrack">
+  <insert id="insertSelective" parameterType="com.jayce.food.pojo.FoodTrack">
     insert into tab_food_track
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="trackId != null">
@@ -132,7 +132,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.jayce.pojo.food.FoodTrackExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.jayce.food.pojo.FoodTrackExample" resultType="java.lang.Long">
     select count(*) from tab_food_track
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

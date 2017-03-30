@@ -57,8 +57,8 @@ public class LoginAuthcFilter extends AccessControlFilter {
 
     //登录失败时将异常信息放入request attribute统一处理
     private void onLoginFail(ServletRequest request, Exception exp) throws IOException {
-        if (logger.isInfoEnabled()) {
-            logger.info("登录失败：", exp);
+        if (logger.isTraceEnabled()) {
+            logger.trace("登录失败：", exp);
         }
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         httpRequest.setAttribute("shiroLoginFailure", exp);

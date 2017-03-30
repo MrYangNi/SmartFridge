@@ -1,11 +1,11 @@
 package com.jayce.common.auth.filter;
 
 
+import com.jayce.common.auth.pojo.StatelessSession;
+import com.jayce.common.auth.service.def.SessionService;
 import com.jayce.common.auth.token.StatelessToken;
 import com.jayce.common.auth.exception.InvalidTokenException;
 import com.jayce.common.auth.exception.NoAuthenticatedInfoException;
-import com.jayce.pojo.auth.StatelessSession;
-import com.jayce.common.auth.service.def.SessionService;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.slf4j.Logger;
@@ -62,8 +62,8 @@ public class StatelessAuthcFilter extends AccessControlFilter {
         return true;
     }
     private void onAuthcFail(ServletRequest request, Exception exp) throws IOException {
-        if (logger.isDebugEnabled()) {
-            logger.debug(exp.getMessage(), exp);
+        if (logger.isTraceEnabled()) {
+            logger.trace(exp.getMessage(), exp);
         }
         request.setAttribute("shiroLoginFailure", exp);
     }

@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
-    <context:component-scan base-package="com.jayce.controller.**" />
+    <context:component-scan base-package="com.jayce.**.controller.**" />
     <aop:config proxy-target-class="true"/>
     <mvc:annotation-driven conversion-service="conversionService" validator="validator">
         <mvc:message-converters register-defaults="true">
@@ -57,7 +57,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="com.jayce.common.AuthFailureInterceptor"/>
+            <bean class="com.jayce.common.exception.handler.AuthFailureInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>
