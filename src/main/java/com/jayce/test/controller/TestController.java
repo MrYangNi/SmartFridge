@@ -28,12 +28,4 @@ public class TestController {
     public Date echoDate(Date date) {
         return date;
     }
-
-
-    @RequestMapping(value = "/newCard", method = RequestMethod.POST)
-    public String onNewTag(@RequestParam("cardId") String carId) {
-        logger.info("收到tagId:{}", carId);
-        return "收到tagId:" + carId;
-    }
-
 }
