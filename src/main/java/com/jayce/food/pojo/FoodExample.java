@@ -11,6 +11,10 @@ public class FoodExample {
 
     protected List<Criteria> oredCriteria;
 
+    protected Integer beginIndex;
+
+    protected Integer pageSize;
+
     public FoodExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
@@ -37,6 +41,22 @@ public class FoodExample {
 
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
+    }
+
+    public Integer getBeginIndex() {
+        return beginIndex;
+    }
+
+    public void setBeginIndex(Integer beginIndex) {
+        this.beginIndex = beginIndex;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
     public Criteria or() {
@@ -175,52 +195,62 @@ public class FoodExample {
             return (Criteria) this;
         }
 
-        public Criteria andTagIdEqualTo(Long value) {
+        public Criteria andTagIdEqualTo(String value) {
             addCriterion("tag_id =", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagIdNotEqualTo(Long value) {
+        public Criteria andTagIdNotEqualTo(String value) {
             addCriterion("tag_id <>", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagIdGreaterThan(Long value) {
+        public Criteria andTagIdGreaterThan(String value) {
             addCriterion("tag_id >", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andTagIdGreaterThanOrEqualTo(String value) {
             addCriterion("tag_id >=", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagIdLessThan(Long value) {
+        public Criteria andTagIdLessThan(String value) {
             addCriterion("tag_id <", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagIdLessThanOrEqualTo(Long value) {
+        public Criteria andTagIdLessThanOrEqualTo(String value) {
             addCriterion("tag_id <=", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagIdIn(List<Long> values) {
+        public Criteria andTagIdLike(String value) {
+            addCriterion("tag_id like", value, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdNotLike(String value) {
+            addCriterion("tag_id not like", value, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdIn(List<String> values) {
             addCriterion("tag_id in", values, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagIdNotIn(List<Long> values) {
+        public Criteria andTagIdNotIn(List<String> values) {
             addCriterion("tag_id not in", values, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagIdBetween(Long value1, Long value2) {
+        public Criteria andTagIdBetween(String value1, String value2) {
             addCriterion("tag_id between", value1, value2, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andTagIdNotBetween(Long value1, Long value2) {
+        public Criteria andTagIdNotBetween(String value1, String value2) {
             addCriterion("tag_id not between", value1, value2, "tagId");
             return (Criteria) this;
         }
@@ -365,52 +395,52 @@ public class FoodExample {
             return (Criteria) this;
         }
 
-        public Criteria andFoodTypeEqualTo(Long value) {
+        public Criteria andFoodTypeEqualTo(Integer value) {
             addCriterion("food_type =", value, "foodType");
             return (Criteria) this;
         }
 
-        public Criteria andFoodTypeNotEqualTo(Long value) {
+        public Criteria andFoodTypeNotEqualTo(Integer value) {
             addCriterion("food_type <>", value, "foodType");
             return (Criteria) this;
         }
 
-        public Criteria andFoodTypeGreaterThan(Long value) {
+        public Criteria andFoodTypeGreaterThan(Integer value) {
             addCriterion("food_type >", value, "foodType");
             return (Criteria) this;
         }
 
-        public Criteria andFoodTypeGreaterThanOrEqualTo(Long value) {
+        public Criteria andFoodTypeGreaterThanOrEqualTo(Integer value) {
             addCriterion("food_type >=", value, "foodType");
             return (Criteria) this;
         }
 
-        public Criteria andFoodTypeLessThan(Long value) {
+        public Criteria andFoodTypeLessThan(Integer value) {
             addCriterion("food_type <", value, "foodType");
             return (Criteria) this;
         }
 
-        public Criteria andFoodTypeLessThanOrEqualTo(Long value) {
+        public Criteria andFoodTypeLessThanOrEqualTo(Integer value) {
             addCriterion("food_type <=", value, "foodType");
             return (Criteria) this;
         }
 
-        public Criteria andFoodTypeIn(List<Long> values) {
+        public Criteria andFoodTypeIn(List<Integer> values) {
             addCriterion("food_type in", values, "foodType");
             return (Criteria) this;
         }
 
-        public Criteria andFoodTypeNotIn(List<Long> values) {
+        public Criteria andFoodTypeNotIn(List<Integer> values) {
             addCriterion("food_type not in", values, "foodType");
             return (Criteria) this;
         }
 
-        public Criteria andFoodTypeBetween(Long value1, Long value2) {
+        public Criteria andFoodTypeBetween(Integer value1, Integer value2) {
             addCriterion("food_type between", value1, value2, "foodType");
             return (Criteria) this;
         }
 
-        public Criteria andFoodTypeNotBetween(Long value1, Long value2) {
+        public Criteria andFoodTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("food_type not between", value1, value2, "foodType");
             return (Criteria) this;
         }
@@ -425,52 +455,52 @@ public class FoodExample {
             return (Criteria) this;
         }
 
-        public Criteria andStorageMethodEqualTo(Long value) {
+        public Criteria andStorageMethodEqualTo(Integer value) {
             addCriterion("storage_method =", value, "storageMethod");
             return (Criteria) this;
         }
 
-        public Criteria andStorageMethodNotEqualTo(Long value) {
+        public Criteria andStorageMethodNotEqualTo(Integer value) {
             addCriterion("storage_method <>", value, "storageMethod");
             return (Criteria) this;
         }
 
-        public Criteria andStorageMethodGreaterThan(Long value) {
+        public Criteria andStorageMethodGreaterThan(Integer value) {
             addCriterion("storage_method >", value, "storageMethod");
             return (Criteria) this;
         }
 
-        public Criteria andStorageMethodGreaterThanOrEqualTo(Long value) {
+        public Criteria andStorageMethodGreaterThanOrEqualTo(Integer value) {
             addCriterion("storage_method >=", value, "storageMethod");
             return (Criteria) this;
         }
 
-        public Criteria andStorageMethodLessThan(Long value) {
+        public Criteria andStorageMethodLessThan(Integer value) {
             addCriterion("storage_method <", value, "storageMethod");
             return (Criteria) this;
         }
 
-        public Criteria andStorageMethodLessThanOrEqualTo(Long value) {
+        public Criteria andStorageMethodLessThanOrEqualTo(Integer value) {
             addCriterion("storage_method <=", value, "storageMethod");
             return (Criteria) this;
         }
 
-        public Criteria andStorageMethodIn(List<Long> values) {
+        public Criteria andStorageMethodIn(List<Integer> values) {
             addCriterion("storage_method in", values, "storageMethod");
             return (Criteria) this;
         }
 
-        public Criteria andStorageMethodNotIn(List<Long> values) {
+        public Criteria andStorageMethodNotIn(List<Integer> values) {
             addCriterion("storage_method not in", values, "storageMethod");
             return (Criteria) this;
         }
 
-        public Criteria andStorageMethodBetween(Long value1, Long value2) {
+        public Criteria andStorageMethodBetween(Integer value1, Integer value2) {
             addCriterion("storage_method between", value1, value2, "storageMethod");
             return (Criteria) this;
         }
 
-        public Criteria andStorageMethodNotBetween(Long value1, Long value2) {
+        public Criteria andStorageMethodNotBetween(Integer value1, Integer value2) {
             addCriterion("storage_method not between", value1, value2, "storageMethod");
             return (Criteria) this;
         }
@@ -665,6 +695,66 @@ public class FoodExample {
             return (Criteria) this;
         }
 
+        public Criteria andBindTimeIsNull() {
+            addCriterion("bind_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindTimeIsNotNull() {
+            addCriterion("bind_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindTimeEqualTo(Date value) {
+            addCriterion("bind_time =", value, "bindTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindTimeNotEqualTo(Date value) {
+            addCriterion("bind_time <>", value, "bindTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindTimeGreaterThan(Date value) {
+            addCriterion("bind_time >", value, "bindTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("bind_time >=", value, "bindTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindTimeLessThan(Date value) {
+            addCriterion("bind_time <", value, "bindTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindTimeLessThanOrEqualTo(Date value) {
+            addCriterion("bind_time <=", value, "bindTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindTimeIn(List<Date> values) {
+            addCriterion("bind_time in", values, "bindTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindTimeNotIn(List<Date> values) {
+            addCriterion("bind_time not in", values, "bindTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindTimeBetween(Date value1, Date value2) {
+            addCriterion("bind_time between", value1, value2, "bindTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindTimeNotBetween(Date value1, Date value2) {
+            addCriterion("bind_time not between", value1, value2, "bindTime");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("status is null");
             return (Criteria) this;
@@ -675,52 +765,52 @@ public class FoodExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Long value) {
+        public Criteria andStatusEqualTo(Boolean value) {
             addCriterion("status =", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Long value) {
+        public Criteria andStatusNotEqualTo(Boolean value) {
             addCriterion("status <>", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Long value) {
+        public Criteria andStatusGreaterThan(Boolean value) {
             addCriterion("status >", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Long value) {
+        public Criteria andStatusGreaterThanOrEqualTo(Boolean value) {
             addCriterion("status >=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Long value) {
+        public Criteria andStatusLessThan(Boolean value) {
             addCriterion("status <", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Long value) {
+        public Criteria andStatusLessThanOrEqualTo(Boolean value) {
             addCriterion("status <=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Long> values) {
+        public Criteria andStatusIn(List<Boolean> values) {
             addCriterion("status in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Long> values) {
+        public Criteria andStatusNotIn(List<Boolean> values) {
             addCriterion("status not in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Long value1, Long value2) {
+        public Criteria andStatusBetween(Boolean value1, Boolean value2) {
             addCriterion("status between", value1, value2, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Long value1, Long value2) {
+        public Criteria andStatusNotBetween(Boolean value1, Boolean value2) {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }

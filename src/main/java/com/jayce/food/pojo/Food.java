@@ -5,15 +5,15 @@ import java.util.Date;
 public class Food {
     private Long foodId;
 
-    private Long tagId;
+    private String tagId;
 
     private Long fridgeId;
 
     private String foodName;
 
-    private Long foodType;
+    private Integer foodType;
 
-    private Long storageMethod;
+    private Integer storageMethod;
 
     private String manufacturer;
 
@@ -21,7 +21,9 @@ public class Food {
 
     private Long qualityTime;
 
-    private Long status;
+    private Date bindTime;
+
+    private Boolean status;
 
     public Long getFoodId() {
         return foodId;
@@ -31,12 +33,12 @@ public class Food {
         this.foodId = foodId;
     }
 
-    public Long getTagId() {
+    public String getTagId() {
         return tagId;
     }
 
-    public void setTagId(Long tagId) {
-        this.tagId = tagId;
+    public void setTagId(String tagId) {
+        this.tagId = tagId == null ? null : tagId.trim();
     }
 
     public Long getFridgeId() {
@@ -55,19 +57,19 @@ public class Food {
         this.foodName = foodName == null ? null : foodName.trim();
     }
 
-    public Long getFoodType() {
+    public Integer getFoodType() {
         return foodType;
     }
 
-    public void setFoodType(Long foodType) {
+    public void setFoodType(Integer foodType) {
         this.foodType = foodType;
     }
 
-    public Long getStorageMethod() {
+    public Integer getStorageMethod() {
         return storageMethod;
     }
 
-    public void setStorageMethod(Long storageMethod) {
+    public void setStorageMethod(Integer storageMethod) {
         this.storageMethod = storageMethod;
     }
 
@@ -95,11 +97,19 @@ public class Food {
         this.qualityTime = qualityTime;
     }
 
-    public Long getStatus() {
+    public Date getBindTime() {
+        return bindTime;
+    }
+
+    public void setBindTime(Date bindTime) {
+        this.bindTime = bindTime;
+    }
+
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Long status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }

@@ -4,6 +4,7 @@ import com.jayce.common.auth.exception.InvalidTokenException;
 import com.jayce.common.auth.exception.NoAuthenticatedInfoException;
 import com.jayce.common.auth.exception.NotAuthenticatedException;
 import com.jayce.common.exception.ErrorInfo;
+import com.jayce.common.exception.ResourceNotFoundException;
 import org.apache.shiro.authc.ExpiredCredentialsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -128,9 +129,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ErrorInfo resolveUnknownException(Exception e) {
         String errorMessage = "未知错误";
-        if (logger.isErrorEnabled()) {
-            logger.error(errorMessage, e);
-        }
+        logger.error(errorMessage, e);
         return new ErrorInfo(ErrorInfo.UNKNOWN, errorMessage, e);
     }
 
@@ -145,9 +144,21 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({MyBatisSystemException.class, SQLException.class})
     public ErrorInfo resolveMybatisException(MyBatisSystemException e) {
         String errorMessage = "数据库操作错误";
-        if (logger.isErrorEnabled()) {
-            logger.error(errorMessage, e);
-        }
+        logger.error(errorMessage, e);
         return new ErrorInfo(ErrorInfo.DAO_ERROR, errorMessage, e);
+    }
+
+    /**
+     * 处理资源未找到异常
+     * HTTP状态码：404 NOT_FOUND
+     *
+     * @param e
+     * @return
+     */
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ErrorInfo resolveResourceNotFoundException(ResourceNotFoundException e) {
+        logger.trace("资源未找到", e);
+        return new ErrorInfo(ErrorInfo.RESOURCE_NOT_FOUND, e.getMessage(), e);
     }
 }

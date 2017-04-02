@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Transactional
 @Service("sessionService")
-@PropertySource("classpath:common.properties")
+@PropertySource("classpath:config-common.properties")
 public class SessionServiceImpl implements SessionService{
     @Value("${system.isExpired}")
     private Boolean NO_EXPIRED;

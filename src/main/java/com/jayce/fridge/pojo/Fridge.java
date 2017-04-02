@@ -60,4 +60,16 @@ public class Fridge {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Fridge{" +
+                "fridgeId=" + fridgeId +
+                ", familyId=" + familyId +
+                ", fridgeName='" + fridgeName + '\'' +
+                ", fridgeSn='" + fridgeSn + '\'' +
+                ", fridgeSpec='" + fridgeSpec + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

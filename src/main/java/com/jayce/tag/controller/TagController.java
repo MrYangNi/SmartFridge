@@ -1,6 +1,5 @@
 package com.jayce.tag.controller;
 
-import com.jayce.tag.pojo.Tag;
 import com.jayce.tag.service.def.TagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +22,9 @@ public class TagController {
 
     @RequestMapping(value = "/newCard", method = RequestMethod.POST)
     public String onNewTag(@RequestParam("cardId") String cardId, HttpServletRequest request) {
-        String uid = cardId.toUpperCase();
-        String fridgeId = request.getHeader("Fridge-ID");
-        logger.info("收到tagId:{},fridge id:{}", uid, fridgeId);
-        Tag tag = new Tag();
-        tag.setTagUid(uid);
-        tag.setStatus(true);
-//        tagService.addTag(tag);
-        return "收到tagId:" + uid;
+        String fridgeSn = request.getHeader("Fridge-ID");
+        logger.info("收到tagId:{},fridge id:{}", cardId, fridgeSn);
+        tagService.onTag(cardId, fridgeSn);
+        return "收到tagId:" + cardId;
     }
 }

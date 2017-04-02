@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jayce.food.dao.FoodTrackMapper">
   <resultMap id="BaseResultMap" type="com.jayce.food.pojo.FoodTrack">
-    <result column="track_id" jdbcType="BIGINT" property="trackId" />
+    <id column="track_id" jdbcType="BIGINT" property="trackId" />
     <result column="food_id" jdbcType="BIGINT" property="foodId" />
     <result column="process_method" jdbcType="BIGINT" property="processMethod" />
     <result column="process_time" jdbcType="TIMESTAMP" property="processTime" />
@@ -83,6 +83,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tab_food_track
+    where track_id = #{trackId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tab_food_track
+    where track_id = #{trackId,jdbcType=BIGINT}
+  </delete>
   <delete id="deleteByExample" parameterType="com.jayce.food.pojo.FoodTrackExample">
     delete from tab_food_track
     <if test="_parameter != null">
@@ -171,5 +181,31 @@
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jayce.food.pojo.FoodTrack">
+    update tab_food_track
+    <set>
+      <if test="foodId != null">
+        food_id = #{foodId,jdbcType=BIGINT},
+      </if>
+      <if test="processMethod != null">
+        process_method = #{processMethod,jdbcType=BIGINT},
+      </if>
+      <if test="processTime != null">
+        process_time = #{processTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processUnit != null">
+        process_unit = #{processUnit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where track_id = #{trackId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jayce.food.pojo.FoodTrack">
+    update tab_food_track
+    set food_id = #{foodId,jdbcType=BIGINT},
+      process_method = #{processMethod,jdbcType=BIGINT},
+      process_time = #{processTime,jdbcType=TIMESTAMP},
+      process_unit = #{processUnit,jdbcType=VARCHAR}
+    where track_id = #{trackId,jdbcType=BIGINT}
   </update>
 </mapper>

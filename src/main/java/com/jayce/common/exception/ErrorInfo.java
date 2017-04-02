@@ -8,6 +8,7 @@ public class ErrorInfo {
     public static final int AUTHENTICATION_ERROR = -2;
     public static final int AUTHORIZATION_ERROR = -3;
     public static final int DAO_ERROR = -4;
+    public static final int RESOURCE_NOT_FOUND = -5;
     private int errorCode;
     private String errorMessage;
     private String exceptionName;

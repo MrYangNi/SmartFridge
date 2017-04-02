@@ -2,16 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jayce.food.dao.FoodMapper">
   <resultMap id="BaseResultMap" type="com.jayce.food.pojo.Food">
-    <result column="food_id" jdbcType="BIGINT" property="foodId" />
-    <result column="tag_id" jdbcType="BIGINT" property="tagId" />
+    <id column="food_id" jdbcType="BIGINT" property="foodId" />
+    <result column="tag_id" jdbcType="VARCHAR" property="tagId" />
     <result column="fridge_id" jdbcType="BIGINT" property="fridgeId" />
     <result column="food_name" jdbcType="VARCHAR" property="foodName" />
-    <result column="food_type" jdbcType="BIGINT" property="foodType" />
-    <result column="storage_method" jdbcType="BIGINT" property="storageMethod" />
+    <result column="food_type" jdbcType="INTEGER" property="foodType" />
+    <result column="storage_method" jdbcType="INTEGER" property="storageMethod" />
     <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
     <result column="manufacture_time" jdbcType="TIMESTAMP" property="manufactureTime" />
     <result column="quality_time" jdbcType="BIGINT" property="qualityTime" />
-    <result column="status" jdbcType="BIGINT" property="status" />
+    <result column="bind_time" jdbcType="TIMESTAMP" property="bindTime" />
+    <result column="status" jdbcType="BIT" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     food_id, tag_id, fridge_id, food_name, food_type, storage_method, manufacturer, manufacture_time, 
-    quality_time, status
+    quality_time, bind_time, status
   </sql>
   <select id="selectByExample" parameterType="com.jayce.food.pojo.FoodExample" resultMap="BaseResultMap">
     select
@@ -88,7 +89,20 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+    <if test="!(beginIndex==null || pageSize==null)">
+      limit ${beginIndex}, ${pageSize}
+    </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tab_food
+    where food_id = #{foodId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tab_food
+    where food_id = #{foodId,jdbcType=BIGINT}
+  </delete>
   <delete id="deleteByExample" parameterType="com.jayce.food.pojo.FoodExample">
     delete from tab_food
     <if test="_parameter != null">
@@ -99,11 +113,11 @@
     insert into tab_food (food_id, tag_id, fridge_id, 
       food_name, food_type, storage_method, 
       manufacturer, manufacture_time, quality_time, 
-      status)
-    values (#{foodId,jdbcType=BIGINT}, #{tagId,jdbcType=BIGINT}, #{fridgeId,jdbcType=BIGINT}, 
-      #{foodName,jdbcType=VARCHAR}, #{foodType,jdbcType=BIGINT}, #{storageMethod,jdbcType=BIGINT}, 
+      bind_time, status)
+    values (#{foodId,jdbcType=BIGINT}, #{tagId,jdbcType=VARCHAR}, #{fridgeId,jdbcType=BIGINT}, 
+      #{foodName,jdbcType=VARCHAR}, #{foodType,jdbcType=INTEGER}, #{storageMethod,jdbcType=INTEGER}, 
       #{manufacturer,jdbcType=VARCHAR}, #{manufactureTime,jdbcType=TIMESTAMP}, #{qualityTime,jdbcType=BIGINT}, 
-      #{status,jdbcType=BIGINT})
+      #{bindTime,jdbcType=TIMESTAMP}, #{status,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.jayce.food.pojo.Food">
     insert into tab_food
@@ -135,6 +149,9 @@
       <if test="qualityTime != null">
         quality_time,
       </if>
+      <if test="bindTime != null">
+        bind_time,
+      </if>
       <if test="status != null">
         status,
       </if>
@@ -144,7 +161,7 @@
         #{foodId,jdbcType=BIGINT},
       </if>
       <if test="tagId != null">
-        #{tagId,jdbcType=BIGINT},
+        #{tagId,jdbcType=VARCHAR},
       </if>
       <if test="fridgeId != null">
         #{fridgeId,jdbcType=BIGINT},
@@ -153,10 +170,10 @@
         #{foodName,jdbcType=VARCHAR},
       </if>
       <if test="foodType != null">
-        #{foodType,jdbcType=BIGINT},
+        #{foodType,jdbcType=INTEGER},
       </if>
       <if test="storageMethod != null">
-        #{storageMethod,jdbcType=BIGINT},
+        #{storageMethod,jdbcType=INTEGER},
       </if>
       <if test="manufacturer != null">
         #{manufacturer,jdbcType=VARCHAR},
@@ -167,8 +184,11 @@
       <if test="qualityTime != null">
         #{qualityTime,jdbcType=BIGINT},
       </if>
+      <if test="bindTime != null">
+        #{bindTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="status != null">
-        #{status,jdbcType=BIGINT},
+        #{status,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -185,7 +205,7 @@
         food_id = #{record.foodId,jdbcType=BIGINT},
       </if>
       <if test="record.tagId != null">
-        tag_id = #{record.tagId,jdbcType=BIGINT},
+        tag_id = #{record.tagId,jdbcType=VARCHAR},
       </if>
       <if test="record.fridgeId != null">
         fridge_id = #{record.fridgeId,jdbcType=BIGINT},
@@ -194,10 +214,10 @@
         food_name = #{record.foodName,jdbcType=VARCHAR},
       </if>
       <if test="record.foodType != null">
-        food_type = #{record.foodType,jdbcType=BIGINT},
+        food_type = #{record.foodType,jdbcType=INTEGER},
       </if>
       <if test="record.storageMethod != null">
-        storage_method = #{record.storageMethod,jdbcType=BIGINT},
+        storage_method = #{record.storageMethod,jdbcType=INTEGER},
       </if>
       <if test="record.manufacturer != null">
         manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
@@ -208,8 +228,11 @@
       <if test="record.qualityTime != null">
         quality_time = #{record.qualityTime,jdbcType=BIGINT},
       </if>
+      <if test="record.bindTime != null">
+        bind_time = #{record.bindTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=BIGINT},
+        status = #{record.status,jdbcType=BIT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -219,17 +242,68 @@
   <update id="updateByExample" parameterType="map">
     update tab_food
     set food_id = #{record.foodId,jdbcType=BIGINT},
-      tag_id = #{record.tagId,jdbcType=BIGINT},
+      tag_id = #{record.tagId,jdbcType=VARCHAR},
       fridge_id = #{record.fridgeId,jdbcType=BIGINT},
       food_name = #{record.foodName,jdbcType=VARCHAR},
-      food_type = #{record.foodType,jdbcType=BIGINT},
-      storage_method = #{record.storageMethod,jdbcType=BIGINT},
+      food_type = #{record.foodType,jdbcType=INTEGER},
+      storage_method = #{record.storageMethod,jdbcType=INTEGER},
       manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
       manufacture_time = #{record.manufactureTime,jdbcType=TIMESTAMP},
       quality_time = #{record.qualityTime,jdbcType=BIGINT},
-      status = #{record.status,jdbcType=BIGINT}
+      bind_time = #{record.bindTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jayce.food.pojo.Food">
+    update tab_food
+    <set>
+      <if test="tagId != null">
+        tag_id = #{tagId,jdbcType=VARCHAR},
+      </if>
+      <if test="fridgeId != null">
+        fridge_id = #{fridgeId,jdbcType=BIGINT},
+      </if>
+      <if test="foodName != null">
+        food_name = #{foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="foodType != null">
+        food_type = #{foodType,jdbcType=INTEGER},
+      </if>
+      <if test="storageMethod != null">
+        storage_method = #{storageMethod,jdbcType=INTEGER},
+      </if>
+      <if test="manufacturer != null">
+        manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="manufactureTime != null">
+        manufacture_time = #{manufactureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qualityTime != null">
+        quality_time = #{qualityTime,jdbcType=BIGINT},
+      </if>
+      <if test="bindTime != null">
+        bind_time = #{bindTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where food_id = #{foodId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jayce.food.pojo.Food">
+    update tab_food
+    set tag_id = #{tagId,jdbcType=VARCHAR},
+      fridge_id = #{fridgeId,jdbcType=BIGINT},
+      food_name = #{foodName,jdbcType=VARCHAR},
+      food_type = #{foodType,jdbcType=INTEGER},
+      storage_method = #{storageMethod,jdbcType=INTEGER},
+      manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      manufacture_time = #{manufactureTime,jdbcType=TIMESTAMP},
+      quality_time = #{qualityTime,jdbcType=BIGINT},
+      bind_time = #{bindTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=BIT}
+    where food_id = #{foodId,jdbcType=BIGINT}
   </update>
 </mapper>
