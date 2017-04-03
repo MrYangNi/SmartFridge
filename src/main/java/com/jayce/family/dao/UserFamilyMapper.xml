@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jayce.family.dao.UserFamilyMapper">
+    <resultMap id="familyMap" type="com.jayce.family.pojo.Family">
+        <id column="family_id" jdbcType="BIGINT" property="familyId"/>
+        <result column="family_name" jdbcType="VARCHAR" property="familyName"/>
+        <result column="family_addr" jdbcType="VARCHAR" property="familyAddr"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+    </resultMap>
+    <resultMap id="userMap" type="com.jayce.user.pojo.User">
+        <id column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="salt" jdbcType="VARCHAR" property="salt" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="gender" jdbcType="INTEGER" property="gender" />
+        <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="status" jdbcType="BIT" property="status" />
+    </resultMap>
+    <sql id="FAMILY_SELECT_LIST">
+        f.family_id, f.family_name, f.family_addr, f.create_user, f.create_time, f.status
+    </sql>
+    <sql id="USER_SELECT_LIST">
+        u.user_id, username, password, salt, name, gender, birthday, phone, email, u.status
+    </sql>
+    <select id="selectFamiliesByUser" parameterType="java.lang.Long" resultMap="familyMap">
+        SELECT
+        <include refid="FAMILY_SELECT_LIST"/>
+        FROM
+            rel_user_family r LEFT JOIN tab_family f
+                ON r.family_id = f.family_id
+        WHERE
+            user_id = #{userId} AND r.status = true AND f.status = true
+    </select>
+    <select id="selectUsersByFamily" parameterType="java.lang.Long" resultMap="userMap">
+        SELECT
+            <include refid="USER_SELECT_LIST"/>
+        FROM
+            `rel_user_family` r
+            LEFT JOIN tab_user u ON r.user_id = u.user_id
+        WHERE
+            family_id = #{familyId} AND r.status = true ANd u.status = true
+    </select>
+    <insert id="insertUserFamilyRelation">
+        INSERT INTO
+            rel_user_family (user_id, family_id, status)
+        VALUES
+            (#{userId}, #{familyId}, true)
+    </insert>
+    <update id="recoverUserFamilyRelation">
+        UPDATE
+            rel_user_family
+        SET
+            status = true
+        WHERE
+            family_id = #{familyId} AND user_id = #{userId}
+    </update>
+    <update id="deleteUserFamilyRelation">
+        UPDATE
+            rel_user_family
+        SET
+            status = false
+        WHERE
+            family_id = #{familyId} AND user_id = #{userId}
+    </update>
+</mapper>

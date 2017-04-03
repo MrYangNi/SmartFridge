@@ -33,7 +33,7 @@ public class FoodController {
         return new FoodListRsp(timestamp, foodList);
     }
 
-    @RequestMapping(value = "/food/track/{foodId}")
+    @RequestMapping(value = "/food/track/{foodId}", method = RequestMethod.GET)
     public List<FoodTrack> getFoodTrack(@PathVariable Long foodId) {
         return foodService.getFoodTrackByFoodId(foodId);
     }

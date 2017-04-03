@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50610
+Source Server         : MySQL
+Source Server Version : 50550
 Source Host           : localhost:3306
-Source Database       : smartfridge
+Source Database       : smartfridge_db
 
 Target Server Type    : MYSQL
-Target Server Version : 50610
+Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2017-04-03 13:16:28
+Date: 2017-04-03 18:50:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,15 +23,18 @@ CREATE TABLE `rel_user_family` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
   `family_id` bigint(20) DEFAULT NULL COMMENT '家庭Id',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='用户与家庭的关联表';
+  `status` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_user_family` (`user_id`,`family_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='用户与家庭的关联表';
 
 -- ----------------------------
 -- Records of rel_user_family
 -- ----------------------------
-INSERT INTO `rel_user_family` VALUES ('1', '1', '1');
-INSERT INTO `rel_user_family` VALUES ('2', '2', '1');
-INSERT INTO `rel_user_family` VALUES ('3', '3', '2');
+INSERT INTO `rel_user_family` VALUES ('1', '1', '1', '1');
+INSERT INTO `rel_user_family` VALUES ('2', '2', '1', '1');
+INSERT INTO `rel_user_family` VALUES ('3', '3', '2', '1');
+INSERT INTO `rel_user_family` VALUES ('4', '3', '3', '1');
 
 -- ----------------------------
 -- Table structure for sys_dic_key
@@ -81,15 +84,19 @@ CREATE TABLE `tab_family` (
   `family_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '家庭Id',
   `family_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '家庭昵称',
   `family_addr` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '家庭地址',
+  `create_user` bigint(20) DEFAULT NULL COMMENT '创建用户',
+  `create_time` datetime DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL COMMENT '是否启用',
   PRIMARY KEY (`family_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='家庭表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='家庭表';
 
 -- ----------------------------
 -- Records of tab_family
 -- ----------------------------
-INSERT INTO `tab_family` VALUES ('1', '家庭1', '天津理工大学', '1');
-INSERT INTO `tab_family` VALUES ('2', '家庭2', '天津大学', '1');
+INSERT INTO `tab_family` VALUES ('1', '家庭1', '天津理工大学', '1', '2017-04-03 15:57:35', '1');
+INSERT INTO `tab_family` VALUES ('2', '家庭2', '天津大学', '1', '2017-04-03 15:57:38', '1');
+INSERT INTO `tab_family` VALUES ('3', '家庭3', '天津师范大学', '3', '2017-04-03 15:57:42', '1');
+INSERT INTO `tab_family` VALUES ('9', '家庭4', '天津城建大学', '3', '2017-04-03 17:59:21', '1');
 
 -- ----------------------------
 -- Table structure for tab_food
@@ -105,7 +112,7 @@ CREATE TABLE `tab_food` (
   `manufacturer` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '生产厂家',
   `manufacture_time` datetime DEFAULT NULL COMMENT '生产日期',
   `quality_time` bigint(20) DEFAULT NULL COMMENT '保质期',
-  `bind_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '与冰箱绑定的时间',
+  `bind_time` datetime DEFAULT NULL COMMENT '与冰箱绑定的时间',
   `status` tinyint(1) DEFAULT NULL COMMENT '状态',
   PRIMARY KEY (`food_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='食物表';
@@ -196,7 +203,7 @@ CREATE TABLE `tab_session` (
 -- ----------------------------
 -- Records of tab_session
 -- ----------------------------
-INSERT INTO `tab_session` VALUES ('123', '1', 'ff31df530693aeca849c617632bfe461', '2017-04-02 23:10:47', '2017-04-02 23:53:01');
+INSERT INTO `tab_session` VALUES ('123', '1', 'ff31df530693aeca849c617632bfe461', '2017-04-02 23:10:47', '2017-04-03 18:50:31');
 
 -- ----------------------------
 -- Table structure for tab_user

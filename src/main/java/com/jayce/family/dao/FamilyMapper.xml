@@ -1,164 +1,233 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jayce.family.dao.FamilyMapper">
-  <resultMap id="BaseResultMap" type="com.jayce.family.pojo.Family">
-    <result column="family_id" jdbcType="BIGINT" property="familyId" />
-    <result column="family_name" jdbcType="VARCHAR" property="familyName" />
-    <result column="family_addr" jdbcType="VARCHAR" property="familyAddr" />
-    <result column="status" jdbcType="BIT" property="status" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.jayce.family.pojo.Family">
+        <id column="family_id" jdbcType="BIGINT" property="familyId"/>
+        <result column="family_name" jdbcType="VARCHAR" property="familyName"/>
+        <result column="family_addr" jdbcType="VARCHAR" property="familyAddr"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        family_id, family_name, family_addr, create_user, create_time, status
+    </sql>
+    <select id="selectByExample" parameterType="com.jayce.family.pojo.FamilyExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    family_id, family_name, family_addr, status
-  </sql>
-  <select id="selectByExample" parameterType="com.jayce.family.pojo.FamilyExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from tab_family
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <delete id="deleteByExample" parameterType="com.jayce.family.pojo.FamilyExample">
-    delete from tab_family
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.jayce.family.pojo.Family">
-    insert into tab_family (family_id, family_name, family_addr, 
-      status)
-    values (#{familyId,jdbcType=BIGINT}, #{familyName,jdbcType=VARCHAR}, #{familyAddr,jdbcType=VARCHAR}, 
-      #{status,jdbcType=BIT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.jayce.family.pojo.Family">
-    insert into tab_family
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="familyId != null">
-        family_id,
-      </if>
-      <if test="familyName != null">
-        family_name,
-      </if>
-      <if test="familyAddr != null">
-        family_addr,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="familyId != null">
-        #{familyId,jdbcType=BIGINT},
-      </if>
-      <if test="familyName != null">
-        #{familyName,jdbcType=VARCHAR},
-      </if>
-      <if test="familyAddr != null">
-        #{familyAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.jayce.family.pojo.FamilyExample" resultType="java.lang.Long">
-    select count(*) from tab_family
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update tab_family
-    <set>
-      <if test="record.familyId != null">
-        family_id = #{record.familyId,jdbcType=BIGINT},
-      </if>
-      <if test="record.familyName != null">
+        <include refid="Base_Column_List"/>
+        from tab_family
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tab_family
+        where family_id = #{familyId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM tab_family
+        WHERE family_id = #{familyId,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.jayce.family.pojo.FamilyExample">
+        delete from tab_family
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.jayce.family.pojo.Family">
+        <selectKey keyProperty="familyId" order="AFTER" resultType="java.lang.Long">
+            select LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO tab_family (family_id, family_name, family_addr,
+                                create_user, create_time, status
+        )
+        VALUES (#{familyId,jdbcType=BIGINT}, #{familyName,jdbcType=VARCHAR}, #{familyAddr,jdbcType=VARCHAR},
+                #{createUser,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=BIT}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.jayce.family.pojo.Family">
+        insert into tab_family
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="familyId != null">
+                family_id,
+            </if>
+            <if test="familyName != null">
+                family_name,
+            </if>
+            <if test="familyAddr != null">
+                family_addr,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="familyId != null">
+                #{familyId,jdbcType=BIGINT},
+            </if>
+            <if test="familyName != null">
+                #{familyName,jdbcType=VARCHAR},
+            </if>
+            <if test="familyAddr != null">
+                #{familyAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.jayce.family.pojo.FamilyExample" resultType="java.lang.Long">
+        select count(*) from tab_family
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update tab_family
+        <set>
+            <if test="record.familyId != null">
+                family_id = #{record.familyId,jdbcType=BIGINT},
+            </if>
+            <if test="record.familyName != null">
+                family_name = #{record.familyName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.familyAddr != null">
+                family_addr = #{record.familyAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createUser != null">
+                create_user = #{record.createUser,jdbcType=BIGINT},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=BIT},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update tab_family
+        set family_id = #{record.familyId,jdbcType=BIGINT},
         family_name = #{record.familyName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.familyAddr != null">
         family_addr = #{record.familyAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=BIT},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update tab_family
-    set family_id = #{record.familyId,jdbcType=BIGINT},
-      family_name = #{record.familyName,jdbcType=VARCHAR},
-      family_addr = #{record.familyAddr,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=BIT}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+        create_user = #{record.createUser,jdbcType=BIGINT},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        status = #{record.status,jdbcType=BIT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jayce.family.pojo.Family">
+        update tab_family
+        <set>
+            <if test="familyName != null">
+                family_name = #{familyName,jdbcType=VARCHAR},
+            </if>
+            <if test="familyAddr != null">
+                family_addr = #{familyAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+        </set>
+        where family_id = #{familyId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jayce.family.pojo.Family">
+        UPDATE tab_family
+        SET family_name = #{familyName,jdbcType=VARCHAR},
+            family_addr = #{familyAddr,jdbcType=VARCHAR},
+            create_user = #{createUser,jdbcType=BIGINT},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            status      = #{status,jdbcType=BIT}
+        WHERE family_id = #{familyId,jdbcType=BIGINT}
+    </update>
 </mapper>
