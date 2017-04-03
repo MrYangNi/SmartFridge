@@ -1,19 +1,39 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : MySQL
-Source Server Version : 50550
+Source Server         : 本地
+Source Server Version : 50610
 Source Host           : localhost:3306
 Source Database       : smartfridge_db
 
 Target Server Type    : MYSQL
-Target Server Version : 50550
+Target Server Version : 50610
 File Encoding         : 65001
 
-Date: 2017-04-03 18:50:52
+Date: 2017-04-04 01:23:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for his_fridge_record
+-- ----------------------------
+DROP TABLE IF EXISTS `his_fridge_record`;
+CREATE TABLE `his_fridge_record` (
+  `record_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '记录id',
+  `fridge_id` bigint(20) DEFAULT NULL COMMENT '冰箱id',
+  `food_id` bigint(20) DEFAULT NULL COMMENT '食物id',
+  `operation` int(11) DEFAULT NULL COMMENT '操作，0. 放入，1. 取出',
+  `operate_time` datetime DEFAULT NULL COMMENT '操作时间',
+  PRIMARY KEY (`record_id`),
+  KEY `index_fridge` (`fridge_id`,`operate_time`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of his_fridge_record
+-- ----------------------------
+INSERT INTO `his_fridge_record` VALUES ('1', '1', '5', '1', '2017-04-04 01:03:15');
+INSERT INTO `his_fridge_record` VALUES ('2', '1', '5', '0', '2017-04-04 01:03:30');
 
 -- ----------------------------
 -- Table structure for rel_user_family
@@ -124,7 +144,7 @@ INSERT INTO `tab_food` VALUES ('1', '1AFFFFFFE4BFFFFFFAD', null, '西红柿', '0
 INSERT INTO `tab_food` VALUES ('2', '2A12CFFFFFFAD', null, '西瓜', '1', '0', null, '2017-03-29 23:03:51', '5000', '2017-04-02 23:06:30', '1');
 INSERT INTO `tab_food` VALUES ('3', '2A13CFFFFFFAD', null, '马铃薯', '0', '0', null, '2017-03-31 23:04:42', '100000', '2017-04-02 23:06:40', '1');
 INSERT INTO `tab_food` VALUES ('4', '2AFFFFFFE3DFFFFFFAD', null, '黄瓜', '0', '0', null, '2017-03-29 23:04:49', '200000', '2017-04-02 23:06:42', '1');
-INSERT INTO `tab_food` VALUES ('5', '3A23EFFFFFFAD', '1', '青椒', '0', '0', null, '2017-03-31 23:04:53', '30000', '2017-04-03 00:13:10', '1');
+INSERT INTO `tab_food` VALUES ('5', '3A23EFFFFFFAD', '1', '青椒', '0', '0', null, '2017-03-31 23:04:53', '30000', '2017-04-04 01:03:30', '1');
 INSERT INTO `tab_food` VALUES ('6', '3A28AFFFFFFAD', null, '西瓜', '1', '0', null, '2017-03-30 23:04:58', '19999', '2017-04-02 23:06:47', '1');
 INSERT INTO `tab_food` VALUES ('7', '3AFFFFFFE4DFFFFFFAD', null, '西红柿', '0', '0', null, '2017-04-01 23:05:02', '18907981789', '2017-04-02 23:06:49', '1');
 INSERT INTO `tab_food` VALUES ('8', '3AFFFFFFE5BFFFFFFAD', null, '圆白菜', '0', '0', null, '2017-04-02 23:05:07', '8917', '2017-04-02 23:06:50', '1');

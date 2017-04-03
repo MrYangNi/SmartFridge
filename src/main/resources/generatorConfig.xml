@@ -12,7 +12,7 @@
         </commentGenerator>
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/smartfridge"
+                        connectionURL="jdbc:mysql://localhost:3306/smartfridge_db"
                         userId="root"
                         password="">
         </jdbcConnection>
@@ -23,7 +23,7 @@
         </javaTypeResolver>
 
         <!-- targetProject:生成PO类的位置 -->
-        <javaModelGenerator targetPackage="com.jayce.food.pojo"
+        <javaModelGenerator targetPackage="com.jayce.fridge.pojo"
                             targetProject="src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
@@ -34,14 +34,14 @@
            如果maven工程只是单独的一个工程，targetProject="src/main/java"
            若果maven工程是分模块的工程，targetProject="所属模块的名称"，例如：
            targetProject="ecps-manager-mapper"，下同-->
-        <sqlMapGenerator targetPackage="com.jayce.food.dao"
+        <sqlMapGenerator targetPackage="com.jayce.fridge.dao"
                          targetProject="src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
         <!-- targetPackage：mapper接口生成的位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.jayce.food.dao"
+                             targetPackage="com.jayce.fridge.dao"
                              targetProject="src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
@@ -54,7 +54,8 @@
         <!--<table tableName="tab_food" domainObjectName="Food"/>-->
         <!--<table tableName="tab_family" domainObjectName="Family"/>-->
         <!--<table tableName="tab_tag" domainObjectName="Tag"/>-->
-        <table tableName="tab_food_track" domainObjectName="FoodTrack"/>
+        <!--<table tableName="tab_food_track" domainObjectName="FoodTrack"/>-->
         <!--<table tableName="tab_user_copy" domainObjectName="SimpleUser"/>-->
+        <table tableName="his_fridge_record" domainObjectName="FridgeRecord"/>
     </context>
 </generatorConfiguration>

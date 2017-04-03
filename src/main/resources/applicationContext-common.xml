@@ -12,6 +12,7 @@
     <context:property-placeholder location="classpath:config-*.properties" />
     <context:component-scan base-package="com.jayce.**.service.impl.**" />
     <context:component-scan base-package="com.jayce.**.exception.handler.**"/>
+    <context:component-scan base-package="com.jayce.**.websocket.**"/>
     <task:annotation-driven executor="taskExecutor" scheduler="scheduler" />
     <task:scheduler id="scheduler" pool-size="10" />
     <!-- 配置线程池 -->

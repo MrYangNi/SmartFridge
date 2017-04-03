@@ -56,7 +56,7 @@ public class FoodServiceImpl implements FoodService {
         if (manufactureTime != null) {
             criteria.andManufactureTimeEqualTo(manufactureTime);
         }
-        criteria.andBindTimeLessThan(timestamp);
+        criteria.andBindTimeLessThanOrEqualTo(timestamp);
         criteria.andStatusEqualTo(true);
         return example;
     }

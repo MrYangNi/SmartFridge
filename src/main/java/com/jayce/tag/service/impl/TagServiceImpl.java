@@ -1,16 +1,23 @@
 package com.jayce.tag.service.impl;
 
 import com.jayce.common.exception.ResourceNotFoundException;
+import com.jayce.common.websocket.ToUserPushURI;
+import com.jayce.family.dao.UserFamilyMapper;
 import com.jayce.food.dao.FoodMapper;
 import com.jayce.food.pojo.Food;
 import com.jayce.food.pojo.FoodExample;
 import com.jayce.fridge.dao.FridgeMapper;
+import com.jayce.fridge.dao.FridgeRecordMapper;
 import com.jayce.fridge.pojo.Fridge;
+import com.jayce.fridge.pojo.FridgeAction;
 import com.jayce.fridge.pojo.FridgeExample;
+import com.jayce.fridge.pojo.FridgeRecord;
 import com.jayce.tag.service.def.TagService;
+import com.jayce.user.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +36,12 @@ public class TagServiceImpl implements TagService {
     private FoodMapper foodMapper;
     @Autowired
     private FridgeMapper fridgeMapper;
+    @Autowired
+    private FridgeRecordMapper recordMapper;
+    @Autowired
+    private UserFamilyMapper userFamilyMapper;
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     @Override
     public void onTag(String tagId, String fridgeSN) {
@@ -52,13 +65,23 @@ public class TagServiceImpl implements TagService {
     }
 
     private void processFood(Food food, Fridge fridge, int operation) {
+        Date actionTime = new Date();
+        FridgeAction fridgeAction = new FridgeAction(fridge, food, actionTime);
+        FridgeRecord record = new FridgeRecord(fridge.getFridgeId(), food.getFoodId(), operation, actionTime);
         if (operation == 0) {//将食物添加到冰箱
             food.setFridgeId(fridge.getFridgeId());
-            food.setBindTime(new Date());
+            food.setBindTime(actionTime);
+            fridgeAction.setActionCode(FridgeAction.IN);
         } else {//将食物和冰箱解除绑定
             food.setFridgeId(null);
+            fridgeAction.setActionCode(FridgeAction.OUT);
         }
         foodMapper.updateByPrimaryKey(food);
+        for (User user : userFamilyMapper.selectUsersByFamily(fridge.getFamilyId())) {
+            messagingTemplate.convertAndSendToUser(user.getUserId().toString(), ToUserPushURI.FRIDGE_ACTION.getUri(),
+                    fridgeAction);
+        }
+        recordMapper.insert(record);
     }
 
     private FoodExample createFoodExample(String tagId) {
