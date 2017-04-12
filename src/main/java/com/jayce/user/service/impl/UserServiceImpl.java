@@ -62,6 +62,7 @@ public class UserServiceImpl implements UserService{
         EncryptedPassword encryptedPassword = PasswordUtils.encrypt(user.getPassword());
         user.setPassword(encryptedPassword.getPassword());
         user.setSalt(encryptedPassword.getSalt());
+        user.setStatus(true);
         userMapper.insert(user);
     }
 }
