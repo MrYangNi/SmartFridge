@@ -2,10 +2,12 @@ package com.jayce.user.service.impl;
 
 import com.jayce.user.dao.SimpleUserMapper;
 import com.jayce.user.dao.UserMapper;
+import com.jayce.common.auth.pojo.EncryptedPassword;
 import com.jayce.user.pojo.SimpleUser;
 import com.jayce.user.pojo.SimpleUserExample;
 import com.jayce.user.pojo.User;
 import com.jayce.user.service.def.UserService;
+import com.jayce.util.PasswordUtils;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +59,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void addUser(User user) {
+        EncryptedPassword encryptedPassword = PasswordUtils.encrypt(user.getPassword());
+        user.setPassword(encryptedPassword.getPassword());
+        user.setSalt(encryptedPassword.getSalt());
+        user.setStatus(true);
         userMapper.insert(user);
     }
 }
