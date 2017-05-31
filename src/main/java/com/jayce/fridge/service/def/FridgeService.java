@@ -10,6 +10,8 @@ import java.util.List;
  * Created by Jaycejia on 2017/4/3.
  */
 public interface FridgeService {
+    List<Fridge> getFridgeByFamily(Long familyId);
+
     void addFridge(Fridge fridge);
 
     List<FridgeRecord> getFridgeRecords(Long fridgeId, Integer pageIndex, Integer pageSize, Date timestamp);

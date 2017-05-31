@@ -21,6 +21,12 @@ public class FridgeController {
     @Autowired
     private FridgeService fridgeService;
 
+
+    @RequestMapping(value = "/fridge", method = RequestMethod.GET)
+    public List<Fridge> getFridgeByFamily(Long familyId) {
+        return fridgeService.getFridgeByFamily(familyId);
+    }
+
     @RequestMapping(value = "/fridge", method = RequestMethod.POST)
     public String addFridge(@RequestBody Fridge fridge) {
         fridgeService.addFridge(fridge);

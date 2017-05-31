@@ -3,6 +3,7 @@ package com.jayce.fridge.service.impl;
 import com.jayce.fridge.dao.FridgeMapper;
 import com.jayce.fridge.dao.FridgeRecordMapper;
 import com.jayce.fridge.pojo.Fridge;
+import com.jayce.fridge.pojo.FridgeExample;
 import com.jayce.fridge.pojo.FridgeRecord;
 import com.jayce.fridge.pojo.FridgeRecordExample;
 import com.jayce.fridge.service.def.FridgeService;
@@ -23,6 +24,15 @@ public class FridgeServiceImpl implements FridgeService {
     private FridgeMapper fridgeMapper;
     @Autowired
     private FridgeRecordMapper recordMapper;
+
+    @Override
+    public List<Fridge> getFridgeByFamily(Long familyId) {
+        FridgeExample example = new FridgeExample();
+        FridgeExample.Criteria criteria = example.createCriteria();
+        criteria.andFamilyIdEqualTo(familyId);
+        criteria.andStatusEqualTo(true);
+        return fridgeMapper.selectByExample(example);
+    }
 
     @Override
     public void addFridge(Fridge fridge) {
