@@ -67,6 +67,7 @@
                 /images/**=anon
                 /js/**=anon
                 /newCard=anon
+                /user=anon
                 /login=loginAuthc
                 /**=statelessAuthc
             </value>
